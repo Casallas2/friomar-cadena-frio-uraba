@@ -7,4 +7,5 @@ export const pantallas: Pantalla[] = [
   { href: "/registrar", nombre: "4. Entradas y salidas" },
   { href: "/inventario", nombre: "5. Inventario y vida útil" },
   { href: "/alertas", nombre: "6. Alarmas" },
+  { href: "/certificados", nombre: "7. Certificados de frío", etiqueta: "OCI-001" },
 ];
