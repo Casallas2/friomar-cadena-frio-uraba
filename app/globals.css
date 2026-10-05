@@ -1,0 +1,82 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-outfit);
+
+  --color-brand-50: #ecf6fb;
+  --color-brand-100: #d3eaf5;
+  --color-brand-200: #a9d4ea;
+  --color-brand-300: #74b8da;
+  --color-brand-400: #3f97c4;
+  --color-brand-500: #1f7aab;
+  --color-brand-600: #0f6292;
+  --color-brand-700: #0c4f77;
+  --color-brand-800: #0b405f;
+  --color-brand-900: #0a3049;
+
+  --color-surface: #f2f6f9;
+  --color-ink: #13232f;
+  --color-muted: #5b6b78;
+
+  --color-risk-high: #d32f2f;
+  --color-risk-high-bg: #fde8e8;
+  --color-risk-mid: #ef7d00;
+  --color-risk-mid-bg: #fff4e5;
+  --color-risk-low: #43a047;
+  --color-risk-low-bg: #e8f5e9;
+  --color-info: #6a45d1;
+  --color-info-bg: #f1ecfd;
+  --color-ice: #5ec8e5;
+  --color-ice-bg: #e3f6fb;
+}
+
+html,
+body {
+  background: #dfe8ee;
+  color: var(--color-ink);
+}
+
+/* Barra de desplazamiento discreta dentro del teléfono */
+.scroll-area {
+  scrollbar-width: thin;
+  scrollbar-color: #c3d3de transparent;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.pulse-ring {
+  animation: pulse-ring 1.8s ease-out infinite;
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-ring,
+  .rise {
+    animation: none;
+  }
+}
