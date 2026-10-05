@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Info, ChevronDown } from "lucide-react";
 import { ScreenHeader, Card } from "@/components/ui";
 import { lotes, cavas, diasRestantes, semaforoVida } from "@/lib/data";
+import { estadoCertificado, registroDe } from "@/lib/certificados";
 
 export default function InventarioPage() {
   const [cava, setCava] = useState("todas");
@@ -37,6 +39,7 @@ export default function InventarioPage() {
             const sv = semaforoVida(l.dias);
             const pct = Math.round((l.dias / l.vidaBaseDias) * 100);
             const open = abierto === l.id;
+            const reg = registroDe(l.id); // OCI-001
             return (
               <Card key={l.id} className="rise">
                 <button onClick={() => setAbierto(open ? null : l.id)} className="w-full text-left" aria-expanded={open}>
@@ -59,6 +62,12 @@ export default function InventarioPage() {
                     <ChevronDown className={`size-4 text-muted transition ${open ? "rotate-180" : ""}`} />
                   </div>
                 </button>
+                {reg && (
+                  <Link href="/certificados" className="mt-2 inline-flex items-center gap-1.5 text-[11px] font-semibold">
+                    <span className={`rounded-full px-2 py-0.5 ${estadoCertificado[reg.estado].clase}`}>{estadoCertificado[reg.estado].label}</span>
+                    <span className="text-muted">{reg.certificado ?? "Certificado de cadena de frío"} →</span>
+                  </Link>
+                )}
                 {open && (
                   <div className="mt-3 rounded-xl bg-brand-50 p-3 text-xs">
                     <p className="font-semibold">Cálculo del tiempo máximo de almacenamiento seguro</p>

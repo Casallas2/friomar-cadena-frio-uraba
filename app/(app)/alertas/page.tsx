@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MapPin, Thermometer, BatteryWarning, Hourglass, Wifi, Send } from "lucide-react";
+import { MapPin, Thermometer, BatteryWarning, Hourglass, Wifi, Send, ShieldAlert } from "lucide-react";
 import { ScreenHeader } from "@/components/ui";
 import { alertasIniciales, type Alerta, type NivelAlerta } from "@/lib/data";
 
@@ -16,6 +16,7 @@ const iconos: Record<Alerta["icono"], React.ReactNode> = {
   energia: <BatteryWarning className="size-5 text-risk-mid" />,
   vencimiento: <Hourglass className="size-5 text-risk-mid" />,
   sensor: <Wifi className="size-5 text-brand-600" />,
+  certificado: <ShieldAlert className="size-5 text-info" />,
 };
 
 type Filtro = "todas" | "activas" | "atendidas";

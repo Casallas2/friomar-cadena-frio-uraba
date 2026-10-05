@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MapPin, Siren, ChevronRight, Thermometer, AlertTriangle, Scale, BatteryCharging, Hourglass } from "lucide-react";
+import { MapPin, Siren, ChevronRight, Thermometer, AlertTriangle, Scale, BatteryCharging, Hourglass, BadgeCheck } from "lucide-react";
 import { StatusBar, SectionTitle, Card } from "@/components/ui";
 import { TempChart } from "@/components/temp-chart";
 import { cavas, estadoCavaStyles, lotes, diasRestantes, semaforoVida } from "@/lib/data";
@@ -67,6 +67,16 @@ export default function InicioPage() {
           <p className="flex-1 text-[13px]">
             <strong>Turbo sin energía</strong> · Cava 3 en batería (5 h 40 min)
           </p>
+          <ChevronRight className="size-4 text-muted" />
+        </Link>
+
+        {/* OCI-001: certificados de cadena de frío */}
+        <Link href="/certificados" className="mt-3 flex items-center gap-3 rounded-2xl border border-info/30 bg-info-bg p-3.5">
+          <BadgeCheck className="size-6 text-info" />
+          <p className="flex-1 text-[13px]">
+            <strong className="text-info">Certificados de frío</strong> · 1 lote por emitir
+          </p>
+          <span className="rounded-full bg-info px-2 py-0.5 text-[10px] font-bold text-white">NUEVO</span>
           <ChevronRight className="size-4 text-muted" />
         </Link>
 

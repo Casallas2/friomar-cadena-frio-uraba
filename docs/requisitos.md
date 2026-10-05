@@ -60,3 +60,15 @@ En el prototipo cada requisito se **simula** en la interfaz: no hay backend ni s
 - Prototipo de **solo frontend**: sin backend, sensores, SMS ni autenticación reales.
 - Hardware real (no incluido): termómetros con carcasa IP67 resistente a humedad salina y gateway con batería de respaldo.
 - Los nombres de personas y de la cooperativa son ficticios; la vida útil por especie es ilustrativa.
+
+## Requisitos añadidos por la OCI-001 (v1.1.0)
+
+| ID | Tipo | Requisito | Pantalla |
+|---|---|---|---|
+| RF-16 | Funcional | El sistema debe generar por lote un registro HACCP con temperatura mínima, máxima, minutos fuera de rango y acciones correctivas. | `/certificados` |
+| RF-17 | Funcional | El sistema debe determinar si un lote es certificable: ≤ 30 min acumulados por encima de -18 °C y nunca por encima de -15 °C. | `/certificados` |
+| RF-18 | Funcional | El sistema debe emitir el Certificado de Cadena de Frío (CCF) con código único y QR de verificación. | `/certificados` |
+| RF-19 | Funcional | El sistema debe bloquear las salidas a mercado nacional de lotes sin certificado emitido. | `/registrar` |
+| RF-20 | Funcional | El sistema debe mostrar el estado del certificado en el inventario y alertar los lotes no certificables. | `/inventario`, `/alertas` |
+| RNF-15 | No funcional (integridad) | Los registros de temperatura que soportan un certificado no deben poder alterarse. | — |
+| RNF-16 | No funcional (verificabilidad) | Un comprador debe poder verificar el certificado escaneando su QR. | `/certificados` |

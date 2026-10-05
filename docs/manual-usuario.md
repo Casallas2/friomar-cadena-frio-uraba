@@ -18,5 +18,8 @@ Dirigido a bodegueros y administradores de cooperativas pesqueras de Necoclí y 
    ver cómo se calculó.
 7. **Atender alarmas.** En *Alarmas* revisa las activas y toca *Marcar como atendida* cuando resuelvas el problema.
    En *Cavas* puedes silenciar la sirena: el monitoreo sigue funcionando.
+8. **Certificados de frío (v1.1.0).** En el panel toca *Certificados de frío*. Cada lote muestra su registro de
+   temperaturas; si cumple la regla, toca *Emitir certificado*. Para vender en mercado nacional, la salida exige el
+   certificado emitido.
 
 Colores: **rojo** = alarma, **naranja** = vigilar o vender pronto, **verde** = normal.

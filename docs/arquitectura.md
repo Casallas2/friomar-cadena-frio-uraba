@@ -52,3 +52,20 @@ El prototipo implementa solo la capa de presentación; los servicios se describe
 - `app/` — una carpeta por vista (ECS-P-01 a ECS-P-06).
 - `components/` — componentes reutilizables (ECS-P-07).
 - `lib/data.ts` — datos simulados que reemplazan las respuestas de los servicios (ECS-D-01, ECS-D-02).
+
+## Cambio v1.1.0 — OCI-001: Certificación de la cadena de frío
+
+```
+Monitoreo de cavas ──LecturaTermica / AnomaliaTermica──► Servicio de alertas (sin cambios)
+                    └──────────────────────────────────► Servicio de Certificación (NUEVO, observador)
+                                                            │  registro HACCP inmutable por lote
+                                                            ▼
+                                                   Certificado CCF + QR de verificación
+Alerta base + ConSirena + ConSMS + ConRegistro + ConRegistroHACCP (NUEVO decorador)
+```
+
+- **Observer:** el nuevo servicio solo se suscribe a eventos que ya existían; el monitoreo no se modifica.
+- **Decorator:** se agrega `ConRegistroHACCP` para que cada alarma crítica deje su acción correctiva en el registro
+  del lote, sin tocar la alerta base ni los otros decoradores.
+- **Adapter:** sin cambios; las lecturas de todas las marcas ya llegan en el formato común.
+- Servicios sin impacto: Monitoreo, Alertas, Vida útil y adaptadores de sensores.

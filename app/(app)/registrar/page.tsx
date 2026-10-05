@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Minus, Plus, Thermometer, Loader2, CheckCircle2, AlertTriangle, ArrowDownToLine, ArrowUpFromLine } from "lucide-react";
+import { Minus, Plus, Thermometer, Loader2, CheckCircle2, AlertTriangle, ArrowDownToLine, ArrowUpFromLine, BadgeCheck } from "lucide-react";
 import { ScreenHeader, Card } from "@/components/ui";
 import { cavas, especies, lotes, MAX_TEMP_INGRESO, diasRestantes } from "@/lib/data";
+import { registroDe } from "@/lib/certificados";
 
 type Tipo = "entrada" | "salida";
 
@@ -185,14 +186,19 @@ function Salida({ onListo }: { onListo: (m: string) => void }) {
   const [loteId, setLoteId] = useState(disponibles[0].id);
   const [kg, setKg] = useState(100);
   const [destino, setDestino] = useState("");
+  const [venta, setVenta] = useState<"nacional" | "local">("nacional");
   const [enviando, setEnviando] = useState(false);
   const lote = lotes.find((l) => l.id === loteId)!;
   const excede = kg > lote.kg;
-  const completo = kg > 0 && !excede && destino.trim() !== "";
+  // OCI-001: la venta a mercado nacional exige certificado de cadena de frío emitido
+  const registro = registroDe(lote.id);
+  const sinCertificado = venta === "nacional" && registro?.estado !== "emitido";
+  const completo = kg > 0 && !excede && destino.trim() !== "" && !sinCertificado;
 
   function guardar() {
     setEnviando(true);
-    setTimeout(() => onListo(`Salida de ${kg} kg de ${lote.especie} (${lote.id}) hacia ${destino}. Quedan ${lote.kg - kg} kg.`), 800);
+    const cert = venta === "nacional" ? ` Se adjunta el certificado ${registro?.certificado}.` : "";
+    setTimeout(() => onListo(`Salida de ${kg} kg de ${lote.especie} (${lote.id}) hacia ${destino}. Quedan ${lote.kg - kg} kg.${cert}`), 800);
   }
 
   return (
@@ -245,6 +251,44 @@ function Salida({ onListo }: { onListo: (m: string) => void }) {
           placeholder="Ej.: Comercializadora Medellín"
           className="mt-1 h-12 w-full rounded-xl border border-brand-200 px-3 text-base outline-none focus:ring-4 focus:ring-brand-200"
         />
+      </Card>
+
+      {/* OCI-001: certificado de cadena de frío */}
+      <Card className="border-info/30">
+        <h2 className="flex items-center gap-2 font-bold">
+          <BadgeCheck className="size-5 text-info" /> 3. Tipo de venta
+        </h2>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          {(["nacional", "local"] as const).map((v) => (
+            <button
+              key={v}
+              onClick={() => setVenta(v)}
+              aria-pressed={venta === v}
+              className={`h-12 rounded-xl border text-sm font-bold transition ${venta === v ? "border-info bg-info-bg text-info ring-2 ring-info" : "border-brand-100"}`}
+            >
+              {v === "nacional" ? "Mercado nacional" : "Venta local"}
+            </button>
+          ))}
+        </div>
+        {venta === "nacional" && registro?.estado === "emitido" && (
+          <p className="mt-3 rounded-xl bg-risk-low-bg p-3 text-xs text-risk-low">
+            Certificado <strong>{registro.certificado}</strong> vigente: se adjuntará al despacho.
+          </p>
+        )}
+        {sinCertificado && (
+          <div className="mt-3 rounded-xl bg-risk-high-bg p-3 text-xs text-risk-high">
+            <p>
+              {registro?.estado === "no-certificable"
+                ? "Este lote no es certificable: solo puede salir como venta local."
+                : "Este lote aún no tiene certificado de cadena de frío. Emítelo para venderlo en mercado nacional."}
+            </p>
+            {registro?.estado === "por-emitir" && (
+              <Link href="/certificados" className="mt-2 inline-block font-bold underline">
+                Ir a certificados →
+              </Link>
+            )}
+          </div>
+        )}
       </Card>
 
       <button

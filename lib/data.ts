@@ -124,7 +124,7 @@ export type Alerta = {
   hace: string;
   leida: boolean;
   entrega?: string;
-  icono: "termometro" | "energia" | "vencimiento" | "sensor";
+  icono: "termometro" | "energia" | "vencimiento" | "sensor" | "certificado";
 };
 
 export const alertasIniciales: Alerta[] = [
@@ -149,6 +149,16 @@ export const alertasIniciales: Alerta[] = [
     leida: false,
     entrega: "SMS a 2 responsables en 9 s",
     icono: "energia",
+  },
+  {
+    id: "a5",
+    titulo: "Lote LOT-0405 no certificable",
+    detalle: "Sierra, 280 kg. Superó -15 °C durante la falla del 26 sep (95 min fuera de rango). Solo puede venderse localmente.",
+    nivel: "advertencia",
+    lugar: "Necoclí",
+    hace: "hoy, 07:10",
+    leida: true,
+    icono: "certificado",
   },
   {
     id: "a3",
