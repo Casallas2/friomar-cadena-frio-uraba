@@ -32,3 +32,9 @@
 | Sprint 3 | Inventario inteligente | HU-05, HU-06 | Salidas FEFO y cálculo de vida útil |
 
 Ceremonias: Sprint Planning al inicio, Daily Scrum de 15 min, Sprint Review con la cooperativa y Sprint Retrospective al cierre.
+
+## Historia añadida por la OCI-001 (Sprint 4)
+
+| ID | Historia de usuario | Criterios de aceptación | Prioridad | Puntos |
+|---|---|---|---|---|
+| HU-08 | Como **administrador**, quiero un certificado de cadena de frío por lote, para vender en mercados nacionales cumpliendo las exigencias del INVIMA y de los compradores. | Registro HACCP por lote; regla de tolerancia; CCF con QR; salida nacional bloqueada sin certificado. | Alta | 13 |

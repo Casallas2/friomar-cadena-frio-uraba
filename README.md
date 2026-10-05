@@ -9,6 +9,7 @@ Prototipo navegable (solo frontend) del sistema **FríoMar**, caso de estudio 8 
 | **Docente** | Marta Lucía Jiménez Torres |
 | **Contexto** | Cooperativas pesqueras de Necoclí y Turbo |
 | **Versión de línea base** | `v1.0.0` (Parcial I — UI/UX y Scrum) |
+| **Versión actual** | `v1.1.0` — OCI-001 Certificado de cadena de frío por lote (Parcial II) |
 | **Despliegue** | Vercel (producción = rama `main`, vista previa = cada rama/PR) |
 
 > **Importante:** es una demostración de interfaz. No hay backend, base de datos, sensores ni envío real de SMS;
@@ -31,6 +32,7 @@ calcula cuánto tiempo puede seguir almacenado cada lote sin perder calidad.
 | 4 | `/registrar` | Entradas y salidas | HU-02 Registrar entrada · HU-05 Registrar salida |
 | 5 | `/inventario` | Inventario y vida útil | HU-06 Calcular tiempo de almacenamiento seguro |
 | 6 | `/alertas` | Alarmas | HU-04 Recibir alarmas |
+| 7 | `/certificados` | Certificados de frío (v1.1.0) | HU-08 Certificar la cadena de frío por lote — **OCI-001** |
 
 Product Backlog y Sprints: [`docs/backlog-scrum.md`](docs/backlog-scrum.md).
 
@@ -51,6 +53,7 @@ Un cambio a cualquier ECS exige una **Solicitud de Cambio** (Issue) y un **Pull 
 | ECS-P-06 | Vista Alarmas | `app/(app)/alertas/page.tsx` | Alarmas críticas, advertencias y atención |
 | ECS-P-07 | Componentes compartidos | `components/` | Marco, navegación, encabezados, gráfico de temperatura |
 | ECS-P-08 | Configuración de build | `package.json`, `next.config.ts`, `tsconfig.json` | Dependencias y compilación |
+| ECS-P-10 | Vista Certificados de frío | `app/(app)/certificados/page.tsx` | Registro HACCP y certificados por lote (OCI-001) |
 | ECS-P-09 | Ejecutable desplegado | Vercel (build de `main`) | Artefacto generado por `next build` |
 
 ### 2. Datos
@@ -62,6 +65,7 @@ Un cambio a cualquier ECS exige una **Solicitud de Cambio** (Issue) y un **Pull 
 | ECS-D-03 | Lecturas de termómetros IoT (externas) | Sensores Elitech, Testo y PT100/Modbus | Temperatura cada 30 s |
 | ECS-D-04 | Pasarela SMS (externa, futura) | Proveedor de mensajería | Entrega de alarmas críticas |
 | ECS-D-05 | Base de datos de inventario (futura) | PostgreSQL + base de series de tiempo | Movimientos y lecturas históricas |
+| ECS-D-06 | Registro HACCP y certificados (simulado) | `lib/certificados.ts` → servicio de Certificación | Temperaturas por lote, acciones correctivas y CCF (OCI-001) |
 
 ### 3. Documentación
 
@@ -77,6 +81,8 @@ Un cambio a cualquier ECS exige una **Solicitud de Cambio** (Issue) y un **Pull 
 | ECS-DOC-08 | Infraestructura como código | `infra/main.tf` |
 | ECS-DOC-09 | Requisitos funcionales y no funcionales | `docs/requisitos.md` |
 | ECS-DOC-10 | Product Backlog y Sprints (Scrum) | `docs/backlog-scrum.md` |
+| ECS-DOC-11 | Orden de Cambio de Ingeniería 001 | `docs/gcs/OCI-001.md` |
+| ECS-DOC-12 | Auditoría e informe de estado de la OCI-001 | `docs/gcs/auditoria-OCI-001.md` |
 
 ## Estrategia de ramas (GitFlow simplificado)
 
